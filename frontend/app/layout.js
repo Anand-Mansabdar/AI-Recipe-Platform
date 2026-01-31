@@ -1,8 +1,17 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { neobrutalism } from "@clerk/themes";
 
-const inter = Inter({subsets: ["latin"]})
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -11,23 +20,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className}`}
-      >
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+    <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className}`}>
+          <Header />
+          <main className="min-h-screen">{children}</main>
 
-        <footer className="py-8 border-t">
-          <div className="max-w-6xl mx-auto flex justify-center items-center">
-            <p className="text-neutral-600 text-sm">
-              Made by Anand Mansabdar
-            </p>
-          </div>
-        </footer>
-      </body>
-    </html>
+          <footer className="py-8 border-t">
+            <div className="max-w-6xl mx-auto flex justify-center items-center">
+              <p className="text-neutral-600 text-sm">
+                Made by Anand Mansabdar
+              </p>
+            </div>
+          </footer>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
