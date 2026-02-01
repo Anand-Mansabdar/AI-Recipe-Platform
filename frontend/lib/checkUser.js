@@ -1,4 +1,4 @@
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { CloudHail } from "lucide-react";
 
 export const checkUser = async () => {
@@ -18,8 +18,9 @@ export const checkUser = async () => {
     return null;
   }
 
-  const subscriptionTier = "free"; // Logic will be implemented later
-
+  const { has } = await auth();
+  const subscriptionTier = has({ plan: "pro" }) ? "pro" : "free;";
+  
   try {
     const existingUserResponse = await fetch(
       `${STRAPI_URL}/api/users?filters[clerkId][$eq]=${user.id}`,
