@@ -2,6 +2,7 @@ import useFetch from "@/hooks/use-fetch";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import RecipeCard from "./RecipeCard";
 
 const RecipeGrid = ({ type, value, fetchAction, backLink = "/explore" }) => {
   const { data, loading, fn: fetchMeals } = useFetch(fetchAction);
@@ -55,7 +56,7 @@ const RecipeGrid = ({ type, value, fetchAction, backLink = "/explore" }) => {
         {!loading && meals.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {meals.map((meal) => (
-              <div>{meal.idMeal}</div>
+              <RecipeCard recipe={meal} key={meal.idMeal} variant="grid" />
             ))}
           </div>
         )}
@@ -65,7 +66,7 @@ const RecipeGrid = ({ type, value, fetchAction, backLink = "/explore" }) => {
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🍽️</div>
             <h3 className="text-2xl font-bold text-stone-900 mb-2">
-              Np recipes found.
+              No recipes found.
             </h3>
             <p className="text-stone-50 mb-6">
               We countn&apos;t find any {displayName}{" "}
