@@ -10,6 +10,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { neobrutalism } from "@clerk/themes";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,13 +27,15 @@ export default function RootLayout({ children }) {
           <Header />
           <main className="min-h-screen">{children}</main>
 
-          <footer className="py-8 border-t">
-            <div className="max-w-6xl mx-auto flex justify-center items-center">
-              <p className="text-neutral-600 text-sm">
-                Made by Anand Mansabdar
-              </p>
-            </div>
-          </footer>
+          <Toaster>
+            <footer className="py-8 border-t">
+              <div className="max-w-6xl mx-auto flex justify-center items-center">
+                <p className="text-neutral-600 text-sm">
+                  Made by Anand Mansabdar
+                </p>
+              </div>
+            </footer>
+          </Toaster>
         </body>
       </html>
     </ClerkProvider>
