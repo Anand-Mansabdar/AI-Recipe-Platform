@@ -197,8 +197,8 @@ export async function addPantryItemManually(formData) {
       },
       body: JSON.stringify({
         data: {
-          name: ingredient.name,
-          quantity: ingredient.quantity,
+          name: name,
+          quantity: quantity,
           imageUrl: "",
           owner: user.id,
         },
@@ -304,7 +304,7 @@ export async function updatePantryItems(formData) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+        Authorization: `Bearer ${STRAPI_API_KEY}`,
       },
       body: JSON.stringify({
         data: {
