@@ -11,7 +11,7 @@ const STRAPI_URL =
 const STRAPI_API_KEY = process.env.STRAPI_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const genai = new GoogleGenerativeAI();
+const genai = new GoogleGenerativeAI({ apiKey: GEMINI_API_KEY });
 
 export async function scanPantryImage(formData) {
   try {
@@ -58,7 +58,7 @@ export async function scanPantryImage(formData) {
     const base64Image = buffer.toString("base64");
 
     const model = genai.getGenerativeModel({
-      model: "gemini-3-pro-image-preview",
+      model: "gemini-2.5-flash-lite",
     });
 
     const prompt = `
@@ -93,7 +93,7 @@ Rules:
     ]);
 
     const response = await result.response;
-    const test = response.text();
+    const text = response.text();
 
     let ingredients;
     try {
@@ -104,7 +104,7 @@ Rules:
 
       ingredients = JSON.parse(cleanText);
     } catch (error) {
-      console.error("Failed to parse gemini response:", test);
+      console.error("Failed to parse gemini response:", text);
       throw new Error("Failed to parse ingredients. Please try again.");
     }
 
